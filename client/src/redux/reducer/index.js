@@ -1,8 +1,9 @@
-import {GET_COUNTRIES,GET_COUNTRIE_BY_ID} from '../actions';
+import {GET_COUNTRIES,GET_COUNTRIE_BY_ID,GET_COUNTRIE_BY_NAME} from '../actions';
 
 const initialState = {
     countries: [],
-    countrieById: []
+    countrieById: [],
+    countrieByName: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +22,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 countrieById: action.payload
             }
+
+        case GET_COUNTRIE_BY_NAME:
+          return{
+            ...state,
+            countrieByName: action.payload
+          }
 
         default: return {...state}
       }
