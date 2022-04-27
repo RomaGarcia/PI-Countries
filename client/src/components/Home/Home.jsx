@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CountryCard from '../CountryCard/CountryCard';
-import { getCountries, getCountrieByName } from '../../redux/actions';
+import { getCountries, getCountrieByName, getActivities } from '../../redux/actions';
 
 export default function Landing() {
 
@@ -11,10 +11,15 @@ export default function Landing() {
 
     const countrieByName = useSelector((state) => state.countrieByName);
 
+    const activities = useSelector((state) => state.activities);
 
+    const activitiesAll = useSelector((state) => state.activitiesAll);
+
+    activities.msg = '';
 
     useEffect(()=>{
-        dispatch(getCountries())
+        dispatch(getCountries());
+        dispatch(getActivities());
     },[dispatch])
 
     const [name, setName] = useState('');
@@ -44,22 +49,33 @@ export default function Landing() {
 
                 <label htmlFor="filt_continent">Continente: </label>
                 <select name="" id="filt_continent">
-
+                    <option value="Todos">Todos</option>
+                    <option value="SurAmerica">Sur America</option>
+                    <option value="NorteAmerica">Norte America</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Europa">Europa</option>
+                    <option value="Antartida">Antartida</option>
                 </select>
 
                 <label htmlFor="filt_activity">Actividad: </label>
                 <select name="" id="filt_activity">
-                    
+                    <option value="Todas">Todas</option>
+                    {activitiesAll?.map(ac => (
+                        <option key={ac.id} value={ac.id}>{ac.name}</option> 
+                    ))}
                 </select>
 
                 <label htmlFor="search_by_alfa">Ordenar Alfabeticamente: </label>
                 <select name="" id="search_by_alfa">
+                    <option value="indisAlfa">-</option>
                     <option value="DESC">A-Z</option>
                     <option value="ASC">Z-A</option>
                 </select>
 
                 <label htmlFor="search_by_population">Ordenar Poblacion: </label>
                 <select name="" id="search_by_population">
+                    <option value="indisPob">-</option>
                     <option value="DESC">Mayor</option>
                     <option value="ASC">Menor</option>
                 </select>
