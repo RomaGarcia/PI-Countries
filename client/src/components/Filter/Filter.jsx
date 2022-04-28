@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect,useState} from 'react';
 import CountryCard from '../CountryCard/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountries, getCountrieByName, getCountriesActivities } from '../../redux/actions';
+import { getCountrieByName, getCountriesActivities} from '../../redux/actions';
 
 export default function Filter({ nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch}) {
 
@@ -10,10 +10,12 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     const countrieByName = useSelector((state) => state.countrieByName);
     const countriesActivity = useSelector((state) => state.countriesActivity);
     let countries_filters = [];
+    let countries_filters2 = [];
     let filters = [];
+    let maxPage = 0;
+    const [page,setPage] = useState(1);
 
     useEffect(()=>{
-        //dispatch(getCountries());
         dispatch(getCountriesActivities());
     },[dispatch])
 
@@ -27,7 +29,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
         for(let i=0 ; i<countriesActivity.length ; i++){
             for(let j=0 ; j<countriesActivity[i].activities.length ; j++){
                 if(countriesActivity[i].continent === continentSearch){
-                    if(countriesActivity[i].activities[j].id == activitySearch){
+                    if(countriesActivity[i].activities[j].id === Number(activitySearch)){
                         countries_filters.push(countriesActivity[i]);
                     }
                 }
@@ -47,7 +49,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     if( continentSearch === 'Todos' && activitySearch !== 'Todas' ){
         for(let i=0 ; i<countriesActivity.length ; i++){
             for(let j=0 ; j<countriesActivity[i].activities.length ; j++){
-                if(countriesActivity[i].activities[j].id == activitySearch){
+                if(countriesActivity[i].activities[j].id === Number(activitySearch)){
                     countries_filters.push(countriesActivity[i]);
                 }
             }
@@ -107,25 +109,50 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     
     if( nameSearch === '' &&  continentSearch === 'Todos' && activitySearch === 'Todas' && alfaSearch === 'indisAlfa' && popuSearch === 'indisPopu') countries_filters = countries;
 
+
+    for (let i = (page * 10) - 10; i < page*10; i++) {
+        if(countries_filters[i] !== undefined)
+        countries_filters2.push(countries_filters[i])
+    }
+    maxPage = Math.ceil((countries_filters.length / 10));
+    if(!maxPage) maxPage=1;
+
     return (
         <div>
-            {!nameSearch && countries_filters?.map(cn => (
+            {!nameSearch && countries_filters2?.map(cn => (
                     <div key={cn.id}>
                         <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
                     </div>
                 ))}
-                            {/*!nameSearch && countries?.map(cn => (
-                    <div key={cn.id}>
-                        <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
-                    </div>
-                            ))*/}
+
             {!nameSearch && filters[0] ?  (<h2>No se encontroasasd</h2>) :
-            nameSearch && countries_filters?.msg ? (<h2>No se encontro</h2>) :
-            nameSearch && countries_filters?.map(cn => (
+            nameSearch && countries_filters2?.msg ? (<h2>No se encontro</h2>) :
+            nameSearch && countries_filters2?.map(cn => (
                 <div key={cn.id}>
                     <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
                 </div>
             ))}
+                
+                {maxPage === 1 ? page :
+                page > 1 && page < maxPage ?
+                    <div>
+                        <button onClick={()=>setPage(page-1)}>Prev</button>
+                        {page}
+                        <button onClick={()=>setPage(page+1)}>Next</button>
+                    </div>
+                :
+                page <= 1 ?
+                    <div>
+                        {page}
+                        <button onClick={()=>setPage(page+1)}>Next</button>
+                    </div>
+                :
+                page >= maxPage &&
+                    <div>
+                        <button onClick={()=>setPage(page-1)}>Prev</button>
+                        {page}
+                    </div>
+                }
         </div>
     )
 }

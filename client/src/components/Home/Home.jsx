@@ -3,17 +3,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 //import CountryCard from '../CountryCard/CountryCard';
 import Filter from '../Filter/Filter';
-import { getCountries, getCountrieByName, getActivities } from '../../redux/actions';
+import { getCountries, getActivities} from '../../redux/actions';
 
 export default function Home() {
 
     const dispatch = useDispatch();
     const countries = useSelector((state) => state.countries);
-
-    //const countrieByName = useSelector((state) => state.countrieByName);
-
     const activities = useSelector((state) => state.activities);
-
     const activitiesAll = useSelector((state) => state.activitiesAll);
 
     activities.msg = '';
@@ -29,10 +25,6 @@ export default function Home() {
     },[dispatch])
 
     const [name, setName] = useState('');
-
-    /*useEffect(()=>{
-        dispatch(getCountrieByName(name));
-    },[dispatch,name])*/
   
     const handleInputChange = function(e) {
         setName(e.target.value);
@@ -41,16 +33,6 @@ export default function Home() {
         setAlfa('indisAlfa');
         setPopulation('indisPopu');
    }
-
-   /*const handleSelectChange = (e)=>{
-     e.preventDefault();
-     let countriesContinents = [];
-     if(e.target.value === 'SurAmerica')
-     countriesContinents = countries.filter(cn => {
-         if(cn.continent === 'South America') return cn;
-     })
-     console.log(e.target.value);
-   }*/
 
     return (
         <div>
@@ -75,7 +57,7 @@ export default function Home() {
 
                 <label htmlFor="filt_activity">Actividad: </label>
                 <select name="" id="filt_activity" value={activity} onChange={(e)=>setActivity(e.target.value)}>
-                    <option value="Todas">Todas</option>
+                    <option value="Todas">Sin Actividad</option>
                     {activitiesAll?.map(ac => (
                         <option key={ac.id} value={ac.id}>{ac.name}</option> 
                     ))}
@@ -100,19 +82,6 @@ export default function Home() {
 
             <div>
                 {countries && <Filter nameSearch={name} continentSearch={continent} activitySearch={activity} alfaSearch={alfa} popuSearch={population}/>}
-                
-                {/*!name && countries?.map(cn => (
-                    <div key={cn.id}>
-                        <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
-                    </div>
-                ))*/}
-
-                {/*name && countrieByName?.msg ? (<h2>No se encontro</h2>) :
-                name && countrieByName?.map(cn => (
-                    <div key={cn.id}>
-                        <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
-                    </div>
-                ))*/}
             </div>
         </div>
     )

@@ -215,7 +215,7 @@ export default function Activity() {
                 <button type="submit">Enviar</button>
             </form> 
 
-            {activities?.msg ? <h3>{activities.msg}</h3> : <h3></h3>}
+            {activities?.msg && <h3>{activities.msg}</h3>}
 
         </div>
     )

@@ -3,7 +3,8 @@ export const GET_COUNTRIE_BY_ID = 'GET_COUNTRIE_BY_ID';
 export const GET_COUNTRIE_BY_NAME = 'GET_COUNTRIE_BY_NAME';
 export const SET_ACTIVITY = 'SET_ACTIVITY';
 export const GET_ACTIVITY = 'GET_ACTIVITY';
-export const  GET_COUNTRY_ACTIVITY = 'GET_COUNTRY_ACTIVITY';
+export const GET_COUNTRY_ACTIVITY = 'GET_COUNTRY_ACTIVITY';
+export const SET_PAGE = 'SET_PAGE';
 
 export const getCountries = () => {
     return async function (dispatch) {
@@ -90,5 +91,11 @@ export const getCountries = () => {
       /*return axios.get('http://localhost:3001/products')
         .then(response => dispatch({type: GET_ALL_PRODUCTS, payload: response.data}))
         .catch(err => dispatch({type: undefined}))*/
+    };
+  };
+
+  export const setPage = (num) => {
+    return(dispatch) => {
+        dispatch({ type: SET_PAGE, payload: num });
     };
   };
