@@ -138,7 +138,7 @@ export default function Activity() {
 
     const handleFormSubmit = function(e) {
         e.preventDefault();
-        if(form.name && !errors.name && form.dificulty && !errors.dificulty && form.duration && !errors.duration && form.season && !errors.season){
+        if(form.name && !errors.name && form.dificulty && !errors.dificulty && form.duration && !errors.duration && form.season && !errors.season && activityCountry.length && !error.activityCountry){
             form.duration = Number(form.duration);
             dispatch(setActivity(form,activityCountry));
             setForm({
