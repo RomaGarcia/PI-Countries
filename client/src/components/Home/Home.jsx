@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 //import CountryCard from '../CountryCard/CountryCard';
 import Filter from '../Filter/Filter';
 import { getCountries, getActivities} from '../../redux/actions';
+import s from './Home.module.css';
 
 export default function Home() {
 
@@ -37,52 +38,61 @@ export default function Home() {
     return (
         <div>
             <Link to='/' >Inicio</Link>
+            
+            <Link to='/activity'>Crear Actividad</Link>
 
             <div>
-                <label htmlFor="search_name">Nombre: </label>
-                <input type="text" id='search_name'  name='name' onChange={handleInputChange}/>
-
+                <div className={s.inputSearch}>
+                    <input type="text" id='search_name'  name='name' onChange={handleInputChange} placeholder='Busca un Pais'/>
+                </div>
                 
 
-                <label htmlFor="filt_continent">Continente: </label>
-                <select name="" id="filt_continent" value={continent} onChange={(e)=>setContinent(e.target.value)}>
-                    <option value="Todos">Todos</option>
-                    <option value="South America">Sur America</option>
-                    <option value="North America">Norte America</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Europe">Europa</option>
-                    <option value="Antarctica">Antartida</option>
-                </select>
+                
+                <div className={s.filterOptions}>
+                    <div className={s.contentSelect}>
+                    <select name="" id="filt_continent" value={continent} onChange={(e)=>setContinent(e.target.value)}>
+                        <option value="Todos">Continentes</option>
+                        <option value="South America">Sur America</option>
+                        <option value="North America">Norte America</option>
+                        <option value="Asia">Asia</option>
+                        <option value="Africa">Africa</option>
+                        <option value="Europe">Europa</option>
+                        <option value="Oceania">Oceania</option>
+                        <option value="Antarctica">Antartida</option>
+                    </select>
+                    </div>
+                    
+                    <div className={s.contentSelect}>
+                    <select name="" id="filt_activity" value={activity} onChange={(e)=>setActivity(e.target.value)}>
+                        <option value="Todas">Sin Actividad</option>
+                        {activitiesAll?.map(ac => (
+                            <option key={ac.id} value={ac.id}>{ac.name}</option> 
+                        ))}
+                    </select>
+                    </div>
 
-                <label htmlFor="filt_activity">Actividad: </label>
-                <select name="" id="filt_activity" value={activity} onChange={(e)=>setActivity(e.target.value)}>
-                    <option value="Todas">Sin Actividad</option>
-                    {activitiesAll?.map(ac => (
-                        <option key={ac.id} value={ac.id}>{ac.name}</option> 
-                    ))}
-                </select>
+                    <div className={s.contentSelect}>
+                    <select name="" id="search_by_alfa" value={alfa} onChange={(e)=>{setAlfa(e.target.value); setPopulation('indisPopu')}}>
+                        <option value="indisAlfa">Alfabeto</option>
+                        <option value="DESC">A-Z</option>
+                        <option value="ASC">Z-A</option>
+                    </select>
+                    </div>
 
-                <label htmlFor="search_by_alfa">Ordenar Alfabeticamente: </label>
-                <select name="" id="search_by_alfa" value={alfa} onChange={(e)=>{setAlfa(e.target.value); setPopulation('indisPopu')}}>
-                    <option value="indisAlfa">-</option>
-                    <option value="DESC">A-Z</option>
-                    <option value="ASC">Z-A</option>
-                </select>
+                    <div className={s.contentSelect}>
+                    <select name="" id="search_by_population" value={population} onChange={(e)=>{setPopulation(e.target.value); setAlfa('indisAlfa')}}>
+                        <option value="indisPopu">Poblacion</option>
+                        <option value="DESC">Mayor-Menor</option>
+                        <option value="ASC">Menor-Mayor</option>
+                    </select>
+                    </div>
+                </div>
 
-                <label htmlFor="search_by_population">Ordenar Poblacion: </label>
-                <select name="" id="search_by_population" value={population} onChange={(e)=>{setPopulation(e.target.value); setAlfa('indisAlfa')}}>
-                    <option value="indisPopu">-</option>
-                    <option value="DESC">Mayor</option>
-                    <option value="ASC">Menor</option>
-                </select>
-
-                <Link to='/activity'>Crear Actividad</Link>
             </div>
 
-            <div>
+            <>
                 {countries && <Filter nameSearch={name} continentSearch={continent} activitySearch={activity} alfaSearch={alfa} popuSearch={population}/>}
-            </div>
+            </>
         </div>
     )
 }

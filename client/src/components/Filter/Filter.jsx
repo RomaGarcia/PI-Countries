@@ -2,6 +2,7 @@ import React, {useEffect,useState} from 'react';
 import CountryCard from '../CountryCard/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountrieByName, getCountriesActivities} from '../../redux/actions';
+import s from './Filter.module.css';
 
 export default function Filter({ nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch}) {
 
@@ -14,6 +15,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     let filters = [];
     let maxPage = 0;
     const [page,setPage] = useState(1);
+    let num = page;
 
     useEffect(()=>{
         dispatch(getCountriesActivities());
@@ -110,15 +112,29 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     if( nameSearch === '' &&  continentSearch === 'Todos' && activitySearch === 'Todas' && alfaSearch === 'indisAlfa' && popuSearch === 'indisPopu') countries_filters = countries;
 
 
-    for (let i = (page * 10) - 10; i < page*10; i++) {
-        if(countries_filters[i] !== undefined)
-        countries_filters2.push(countries_filters[i])
-    }
     maxPage = Math.ceil((countries_filters.length / 10));
-    if(!maxPage) maxPage=1;
+        if(!maxPage) maxPage=1;
+    
+        if(maxPage < page) num = 1;
+
+    if(num===1){
+        for (let i = (num * 9) - 9; i < num*9; i++) {
+            if(countries_filters[i] !== undefined)
+            countries_filters2.push(countries_filters[i])
+        }
+    }else{
+        for (let i = (num * 10) - 10; i < num*10; i++) {
+            if(countries_filters[i] !== undefined)
+            countries_filters2.push(countries_filters[i])
+        }
+    }
+
+
 
     return (
-        <div>
+        <div >
+            
+            <div className={s.cardsContainer}>
             {!nameSearch && countries_filters2?.map(cn => (
                     <div key={cn.id}>
                         <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
@@ -126,33 +142,33 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
                 ))}
 
             {!nameSearch && filters[0] ?  (<h2>No se encontroasasd</h2>) :
-            nameSearch && countries_filters2?.msg ? (<h2>No se encontro</h2>) :
+            nameSearch && countries_filters?.msg ? <h2>No se encontro</h2> :
             nameSearch && countries_filters2?.map(cn => (
                 <div key={cn.id}>
                     <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
                 </div>
             ))}
-                
-                {maxPage === 1 ? page :
-                page > 1 && page < maxPage ?
-                    <div>
-                        <button onClick={()=>setPage(page-1)}>Prev</button>
-                        {page}
-                        <button onClick={()=>setPage(page+1)}>Next</button>
-                    </div>
-                :
-                page <= 1 ?
-                    <div>
-                        {page}
-                        <button onClick={()=>setPage(page+1)}>Next</button>
-                    </div>
-                :
-                page >= maxPage &&
-                    <div>
-                        <button onClick={()=>setPage(page-1)}>Prev</button>
-                        {page}
-                    </div>
-                }
+           </div>
+               
+
+            {maxPage === 1 ? num 
+            : num > 1 && num < maxPage ?
+                <div>
+                    <button onClick={()=>setPage(num-1)}>Prev</button>
+                    {num}
+                    <button onClick={()=>setPage(num+1)}>Next</button>
+                </div>
+            : num <= 1 ?
+                <div>
+                    {num}
+                    <button onClick={()=>setPage(num+1)}>Next</button>
+                </div> 
+            : num >= maxPage &&
+                <div>
+                    <button onClick={()=>setPage(num-1)}>Prev</button>
+                    {num}
+                </div>
+            }
         </div>
     )
 }
