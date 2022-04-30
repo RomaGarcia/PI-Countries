@@ -133,6 +133,26 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
 
     return (
         <div >
+            <div className={s.paginated}>
+            {maxPage === 1 ? num
+            : num > 1 && num < maxPage ?
+                <div>
+                    <button onClick={()=>setPage(num-1)}>Pre</button>
+                    {num} de {maxPage}
+                    <button onClick={()=>setPage(num+1)}>Sig</button>
+                </div>
+            : num <= 1 ?
+                <div>
+                    {num} de {maxPage}
+                    <button onClick={()=>setPage(num+1)}>Sig</button>
+                </div> 
+            : num >= maxPage &&
+                <div>
+                    <button onClick={()=>setPage(num-1)}>Pre</button>
+                    {num} de {maxPage}
+                </div>
+            }
+            </div>
             
             <div className={s.cardsContainer}>
             {!nameSearch && countries_filters2?.map(cn => (
@@ -149,26 +169,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
                 </div>
             ))}
            </div>
-               
-
-            {maxPage === 1 ? num 
-            : num > 1 && num < maxPage ?
-                <div>
-                    <button onClick={()=>setPage(num-1)}>Prev</button>
-                    {num}
-                    <button onClick={()=>setPage(num+1)}>Next</button>
-                </div>
-            : num <= 1 ?
-                <div>
-                    {num}
-                    <button onClick={()=>setPage(num+1)}>Next</button>
-                </div> 
-            : num >= maxPage &&
-                <div>
-                    <button onClick={()=>setPage(num-1)}>Prev</button>
-                    {num}
-                </div>
-            }
+        
         </div>
     )
 }

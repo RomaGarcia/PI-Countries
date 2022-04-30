@@ -37,9 +37,11 @@ export default function Home() {
 
     return (
         <div>
-            <Link to='/' >Inicio</Link>
+            <div className={s.options}>
+                <Link to='/' ><button className={s.buttonInicio}>Inicio</button></Link>
+                <Link to='/activity'><button className={s.buttonActivity}>Crear Actividad</button></Link>
+            </div>
             
-            <Link to='/activity'>Crear Actividad</Link>
 
             <div>
                 <div className={s.inputSearch}>
