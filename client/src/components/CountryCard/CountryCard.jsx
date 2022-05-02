@@ -9,8 +9,8 @@ export default function CountryCard({id,image,name,continent}) {
                 <Link to={`/countrie/${id}`}><img  src={image} alt={name}/></Link>
             </div>
             <div className={s.cardText}>
-                <h4>{name}</h4>
-                <p>Continente: {continent}</p>
+                <h3>{name}</h3>
+                <p> <b>Continente:</b> {continent}</p>
             </div>
         </div>
     )

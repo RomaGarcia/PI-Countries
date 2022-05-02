@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import { getCountries, setActivity} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import s from './Activity.module.css';
 
 export function validate(form,activityCountry) {
     let errors = {};
@@ -152,71 +153,91 @@ export default function Activity() {
     }
 
     return (
-        <div>
-            <Link to='/home' >Home</Link>
+        <>
+        <Link to='/home'><button className={s.btnBack}>Volver</button></Link>
+            
             <form onSubmit={handleFormSubmit}>
-                <label htmlFor="name">Nombre:</label>
-                <input type="text" id='name' name='name' value={form.name} onChange={handleFormChange}/>
-                {errors.name && (
-                    <p style={{color: "red"}}>{errors.name}</p>
-                )}
+            <div className={s.containerForm}> 
+                <div className={s.columA}>
+                    <div className={s.name}>
+                        <label htmlFor="name">Nombre:</label>
+                        <input type="text" id='name' name='name' value={form.name} onChange={handleFormChange} placeholder='Ej: Senderismo'/>
+                        {errors.name && (
+                            <p style={{color: "red"}}>{errors.name}</p>
+                        )}
+                    </div>
 
-                <label htmlFor="dificulty">Dificultad:</label>
-                <select name="dificulty" id="dificulty" value={form.dificulty} onChange={handleFormChange}>
-                    <option value="0">1-5</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                {errors.dificulty && (
-                    <p style={{color: "red"}}>{errors.dificulty}</p>
-                )}
+                    <div className={s.dificulty}>
+                        <label htmlFor="dificulty">Dificultad:</label>
+                        <select name="dificulty" id="dificulty" value={form.dificulty} onChange={handleFormChange}>
+                            <option value="0">1-5</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        {errors.dificulty && (
+                            <p style={{color: "red"}}>{errors.dificulty}</p>
+                        )}
+                    </div>
 
-                <label htmlFor="duration">Duracion:</label>
-                <select name="duration" id="duration" value={form.duration} onChange={handleFormChange}>
-                    <option value="0">Horas</option>
-                    <option value="1">1-2 (hs)</option>
-                    <option value="2">2-3 (hs)</option>
-                    <option value="3">3-4 (hs)</option>
-                    <option value="4">4-5 (hs)</option>
-                    <option value="5">Mayor 5 (hs)</option>
-                </select>
-                {errors.duration && (
-                    <p style={{color: "red"}}>{errors.duration}</p>
-                )}
+                    <div className={s.duration}>
+                    <label htmlFor="duration">Duracion:</label>
+                    <select name="duration" id="duration" value={form.duration} onChange={handleFormChange}>
+                        <option value="0">Horas</option>
+                        <option value="1">1-2 (hs)</option>
+                        <option value="2">2-3 (hs)</option>
+                        <option value="3">3-4 (hs)</option>
+                        <option value="4">4-5 (hs)</option>
+                        <option value="5">Mayor 5 (hs)</option>
+                    </select>
+                    {errors.duration && (
+                        <p style={{color: "red"}}>{errors.duration}</p>
+                    )}
+                    </div>
 
-                <label htmlFor="season">Temporada:</label>
-                <select name="season" id="season" value={form.season} onChange={handleFormChange}>
-                    <option value="">Estacion</option>
-                    <option value="Verano">Verano</option>
-                    <option value="Invierno">Invierno</option>
-                    <option value="Otoño">Otoño</option>
-                    <option value="Primavera">Primavera</option>
-                </select>
-                {errors.season && (
-                    <p style={{color: "red"}}>{errors.season}</p>
-                )}
+                    <div className={s.season}>
+                    <label htmlFor="season">Temporada:</label>
+                    <select name="season" id="season" value={form.season} onChange={handleFormChange}>
+                        <option value="">Estacion</option>
+                        <option value="Verano">Verano</option>
+                        <option value="Invierno">Invierno</option>
+                        <option value="Otoño">Otoño</option>
+                        <option value="Primavera">Primavera</option>
+                    </select>
+                    {errors.season && (
+                        <p style={{color: "red"}}>{errors.season}</p>
+                    )}
+                    </div>
+                </div>
 
+                <div className={s.columB}>
+                <div className={s.country}>
                 <label htmlFor="countrys">Pais:</label>
-                <input list="country" name="country" ref={country}/>  
+                <input list="country" name="country" ref={country} placeholder='Ej: Argentina'/>  
                 <datalist id="country">
                     {countries?.map(cn => (
                         <option key={cn.id} value={cn.id}>{cn.name}</option> 
                     ))}
                 </datalist>
-                <input type="button" value='Agregar' onClick={handleCountryClick/*()=>setAvtivityCountry([...activityCountry,country.current.value])*/}/>
+                <button className={s.btnC} type="button" onClick={handleCountryClick/*()=>setAvtivityCountry([...activityCountry,country.current.value])*/}>Agregar</button>
                 {console.log(activityCountry)}
                 {error.activityCountry && (
                     <p style={{color: "red"}}>{error.activityCountry}</p>
                 )}
+                </div>
+                </div>
 
-                <button type="submit">Enviar</button>
+                </div>
+                <div className={s.btn}>
+                    <button className={s.btnCan}>Cancelar</button>
+                    <button type="submit">Crear</button>
+                </div>
+                
             </form> 
-
-            {activities?.msg && <h3>{activities.msg}</h3>}
-
-        </div>
+        
+        {activities?.msg && <h3>{activities.msg}</h3>}
+        </>
     )
 }

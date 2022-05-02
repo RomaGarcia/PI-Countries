@@ -1,0 +1,71 @@
+.containerById{
+    display: flex;
+    justify-content: center;
+    border-radius: 30px;
+    background: #ffffff;
+    box-shadow: 15px 15px 30px #bebebe,
+                -4px -4px 8px #d4d4d4;
+    padding: 1em 0em;
+    margin: 0 30em;
+    overflow: hidden;
+    border: 1px solid #1b9aee69;
+}
+
+.columA, .columB{
+    flex-direction: column;
+    padding: 1em;
+}
+
+.containerById img{
+    padding: 1em;
+    object-fit: cover;
+
+}
+
+
+.btn{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    padding: 1.2em 2.8em;
+    margin: 20px 10px 0 10px;
+
+   }
+   
+   .btn:hover{
+    background-color: #1b9bee;/*#2EE59D;*/
+    box-shadow: 0px 15px 20px rgba(46, 141, 229, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+   }
+   
+   .btn:active{
+    transform: translateY(-1px);
+   }
+
+.containerActivity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+    width: 100%;
+}
+
+.titleAct{
+    padding: 1.5em 0 0 0;
+    text-align: center;
+}
+
+h4{
+    font-weight: 400;
+}

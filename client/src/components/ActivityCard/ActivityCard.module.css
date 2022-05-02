@@ -1,0 +1,13 @@
+.card{
+    width: 200px;
+    height: 200px;
+    border-radius: 30px;
+    background: #ffffff;
+    box-shadow: 15px 15px 30px #bebebe,
+                -4px -4px 8px #d4d4d4;
+    margin: 25px;
+    overflow: hidden;
+    text-align:left;
+    padding: .5em;
+    border: 1px solid #1b9aee69;
+}

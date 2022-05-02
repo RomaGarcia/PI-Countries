@@ -1,0 +1,177 @@
+form{
+    background: #ffffff;
+    box-shadow: 15px 15px 30px #bebebe,
+                -4px -4px 8px #d4d4d4;
+    margin: 4em 35em 0 35em ;
+    border-radius: 30px;
+    border: 1px solid #1b9aee69;
+}
+
+.containerForm{
+    display: flex;
+    justify-content: center;
+    padding: 1em ;
+}
+
+.containerForm .columA, .containerForm .columB{
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    width: 50%;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5em;
+    height: 50px;
+}
+
+
+
+.btn button, .btnC {
+    
+    background-color: #1899D6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 550;
+    letter-spacing: .2px;
+    line-height: 16px;
+    outline: none;
+    overflow: visible;
+    padding: .45em;
+    margin: 0 6px 6px 6px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+   }
+
+   .btnC{
+    width: 100px;
+    margin: .5em 0 0 35%;
+    
+}
+
+.btn button{
+    background-color: #129b5b;
+}
+.btn .btnCan{
+    background-color: #800f0f;
+}
+   
+   .btn button:after, .btnC:after {
+    background-clip: padding-box;
+    background-color: #1CB0F6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+   }
+   .btn button:after{
+    background-color: #16c774;
+   }
+
+   .btn .btnCan:after{
+    background-color: #b61913;
+   }
+   
+   .btn button:main, button:focus, .btnC:focus {
+    user-select: auto;
+   }
+   
+   .btn button:hover:not(:disabled), .btnC:hover:not(:disabled) {
+    filter: brightness(1.1);
+   }
+   
+   .btn button:disabled,.btnC:disabled {
+    cursor: auto;
+   }
+   
+   .btn button:active:after , .btnC:active:after {
+    border-width: 0 0 0px;
+   }
+   
+   .btn button:active, .btnC:active {
+    padding-bottom: 10px;
+   }
+
+   .name, .dificulty, .duration, .season, .country{
+       display: flex;
+       flex-direction: column;
+       padding: 1em;
+   }
+
+   .name input, .dificulty select, .duration select, .season select, .country input{
+    line-height: 28px;
+    border: 2px solid transparent;
+    border-bottom-color: #777;
+    padding: .5rem 0;
+    outline: none;
+    background-color: transparent;
+    color: #0d0c22;
+    transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
+   }
+   
+   input:focus, input:hover, select:focus, select:hover {
+    outline: none;
+    padding: .2rem 1rem;
+    border-radius: 1rem;
+    border-color: #7a9cc6;
+   }
+   
+   select::placeholder {
+    color: #777;
+   }
+   
+   select:focus::placeholder {
+    opacity: 0;
+    transition: opacity .3s;
+   }
+
+   label{
+       font-size: 16px;
+       font-weight: 350;
+   }
+
+   .btnBack{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    padding: 1.2em 2.8em;
+    margin: 20px 10px 0 10px;
+
+   }
+   
+   .btnBack:hover{
+    background-color: #1b9bee;/*#2EE59D;*/
+    box-shadow: 0px 15px 20px rgba(46, 141, 229, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+   }
+   
+   .btnBack:active{
+    transform: translateY(-1px);
+   }
