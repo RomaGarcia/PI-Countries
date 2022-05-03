@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import s from './Activity.module.css';
 
-export function validate(form,activityCountry) {
+function validate(form) {
     let errors = {};
     if (!form.name) {
       errors.name = 'El nombre de la actividad es requerido';
     } else if (!/^[A-Z]+$/i.test(form.name)) {
       errors.name = 'El nombre de la actividad no es valido';
-    }
+    } else if (form.name.length < 3) errors.name = 'El nombre de la actividad debe tener un minimo de 3 caracteres';
 
     if (!form.dificulty) {
         errors.dificulty = 'La dificultad de la actividad es requerida';
@@ -29,20 +29,6 @@ export function validate(form,activityCountry) {
       } else if (form.season !== "Verano" && form.season !== "Invierno" && form.season !== "Otoño" && form.season !== "Primavera") {
         errors.season = 'La estacion de la actividad no es valida';
     }
-
-    /*if (!activityCountry) {
-        errors.activityCountry = 'El pais es requerido';
-    }*/
-  
-    return errors;
-  };
-
-  export function validateCountry(activityCountry) {
-    let errors = {};
-    if (!activityCountry) {
-        errors.activityCountry = 'El pais es requerido';
-    }
-  
     return errors;
   };
 
@@ -51,6 +37,8 @@ export default function Activity() {
     const dispatch = useDispatch();
     const countries = useSelector((state) => state.countries);
     const activities = useSelector((state) => state.activities);
+    let add = true;
+    let exist = false;
 
     const country = useRef(null);
 
@@ -74,7 +62,7 @@ export default function Activity() {
     const handleFormChange = function(e) {
         setErrors(validate({
             ...form,
-            ...activityCountry,
+            //...activityCountry,
             [e.target.name]: e.target.value
           }));
       
@@ -99,57 +87,77 @@ export default function Activity() {
         console.log(country.current.value)
         for(let i=0 ; i<countries.length ; i++){
             if(countries[i].id === country.current.value){
-                setAvtivityCountry([ //prevState
-                    ...activityCountry, //prevState
+                exist = true;
+            }
+        }
+        
+        if(exist){
+            for(let i=0 ; i<activityCountry.length ; i++){
+                if(activityCountry[i] === country.current.value) add = false;
+            }
+            if(add){
+                setAvtivityCountry([
+                    ...activityCountry, 
                     country.current.value
                 ]);
-
+    
                 setError({
                     ...activityCountry,
                 })
-
+    
                 country.current.value = '';
-            return;
-            }
-        }
-        /*let a = countries.filter(cn=>{
-            if(cn.id === country.current.value.toUpperCase()){
-                setBool(true);
+                return;
+            }else{
+                setError({
+                    ...activityCountry,
+                    activityCountry : 'El pais ya se ingreso'
+                })
                 return;
             }
-        })
-        console.log(country.current.value)*/
-        setError({
-            ...activityCountry,
-            activityCountry : 'El pais ingresado no existe'
-        })
-            
-
-        
-        
-        /*setAvtivityCountry([ //prevState
-            ...activityCountry, //prevState
-            country.current.value
-            ]);
-
-        setError({
-            ...activityCountry,
-        })*/
+        }else{
+            setError({
+                ...activityCountry,
+                activityCountry : 'El pais ingresado no existe'
+            })
+        }
     }
+
+    const handleButtonClick = function(e){
+        e.preventDefault();
+        setAvtivityCountry(activityCountry.filter(ac => ac !== e.target.value))
+    }
+
+    const handleFormCancel = function(e) {
+        e.preventDefault();
+        setForm({
+            name:'',
+            dificulty:0,
+            duration:0,
+            season:'',
+        });
+        setAvtivityCountry([]);
+        country.current.value = '';
+        setError({});
+        setErrors({});
+        activities.msg = '';
+    }
+
 
     const handleFormSubmit = function(e) {
         e.preventDefault();
-        if(form.name && !errors.name && form.dificulty && !errors.dificulty && form.duration && !errors.duration && form.season && !errors.season && activityCountry.length && !error.activityCountry){
-            form.duration = Number(form.duration);
-            dispatch(setActivity(form,activityCountry));
-            setForm({
-                name:'',
-                dificulty:0,
-                duration:0,
-                season:'',
-            });
-            setAvtivityCountry([]);
-        }else console.log('Falta Completar el Formulario');
+        if(form.name && !errors.name && form.dificulty && !errors.dificulty && form.duration && !errors.duration &&
+            form.season && !errors.season && activityCountry.length && !error.activityCountry){
+                form.duration = Number(form.duration);
+                dispatch(setActivity(form,activityCountry));
+                setForm({
+                    name:'',
+                    dificulty:0,
+                    duration:0,
+                    season:'',
+                });
+                setAvtivityCountry([]);
+                country.current.value = '';
+        }else alert('The form isn t complete or have errors');
     }
 
     return (
@@ -215,29 +223,42 @@ export default function Activity() {
                 <div className={s.columB}>
                 <div className={s.country}>
                 <label htmlFor="countrys">Pais:</label>
-                <input list="country" name="country" ref={country} placeholder='Ej: Argentina'/>  
+                <input list="country" ref={country} placeholder='Ej: ARG'/>  
                 <datalist id="country">
                     {countries?.map(cn => (
-                        <option key={cn.id} value={cn.id}>{cn.name}</option> 
+                        <option key={cn.id} value={cn.id} name={cn.name}>{cn.name}</option> 
                     ))}
                 </datalist>
-                <button className={s.btnC} type="button" onClick={handleCountryClick/*()=>setAvtivityCountry([...activityCountry,country.current.value])*/}>Agregar</button>
+                <button className={s.btnC} type="button" onClick={handleCountryClick}>Agregar</button>
                 {console.log(activityCountry)}
                 {error.activityCountry && (
                     <p style={{color: "red"}}>{error.activityCountry}</p>
                 )}
+                <div className={s.containerCard}>
+                {activityCountry?.map(ac => (
+                    <div key={ac} className={s.targetCard}>
+                        <input className={s.noselect} type='button' onClick={handleButtonClick} value={ac}/>
+                            <span>
+                            <svg  width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+                            </svg>
+                            </span>
+                    </div>
+                ))}
+                </div>
                 </div>
                 </div>
 
                 </div>
                 <div className={s.btn}>
-                    <button className={s.btnCan}>Cancelar</button>
+                    <button className={s.btnCan} onClick={handleFormCancel}>Cancelar</button>
                     <button type="submit">Crear</button>
                 </div>
                 
             </form> 
         
-        {activities?.msg && <h3>{activities.msg}</h3>}
+        <div className={s.msgForm}>{activities?.msg && activities?.color === 'green' && <h3 style={{color: '#16c774'}}>{activities.msg}</h3>}</div>
+        <div className={s.msgForm}>{activities?.msg && activities?.color === 'red' && <h3 style={{color: '#b61913'}}>{activities.msg}</h3>}</div>
         </>
     )
 }

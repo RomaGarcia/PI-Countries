@@ -16,7 +16,8 @@ form{
 .containerForm .columA, .containerForm .columB{
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 0em;
+    margin: 0;
     width: 50%;
 }
 
@@ -64,7 +65,7 @@ form{
     background-color: #129b5b;
 }
 .btn .btnCan{
-    background-color: #800f0f;
+    background-color: #a01212;
 }
    
    .btn button:after, .btnC:after {
@@ -85,8 +86,9 @@ form{
     background-color: #16c774;
    }
 
+
    .btn .btnCan:after{
-    background-color: #b61913;
+    background-color: #ff3636e1;
    }
    
    .btn button:main, button:focus, .btnC:focus {
@@ -107,6 +109,10 @@ form{
    
    .btn button:active, .btnC:active {
     padding-bottom: 10px;
+   }
+
+   .btn button:disabled{
+    background-color: #79c09f;
    }
 
    .name, .dificulty, .duration, .season, .country{
@@ -175,3 +181,68 @@ form{
    .btnBack:active{
     transform: translateY(-1px);
    }
+
+   .msgForm{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       padding: 1em;
+       text-transform: uppercase;
+   }
+
+   .containerCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    margin-top: .5em;
+    margin-bottom: 0;
+   }
+
+   .targetCard input{
+        text-align: center;
+       margin: 8px;
+       padding: .3em;
+       border: 1px solid #1b9aee69;
+       box-shadow: 1px 1px 6px #c5c5c5,
+       -1px -1px 6px #ffffff;
+       border-radius: 10px;
+        width: 60px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        box-shadow: 4px 4px 4px #bebebe,
+                    -2px -2px 2px #d4d4d4;
+        background-color: #ffffff;
+   }
+   
+   .targetCard input, input span {
+        transition: 200ms;
+   }
+
+   
+   .targetCard input .icon {
+    /*position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;*/
+        display: none;
+   }
+   
+   .targetCard span svg {
+        display: none;
+   }
+   
+   .targetCard input:hover {
+    background: #ff3636e1;
+    color: black
+   }
+   
+
+
+   
