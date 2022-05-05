@@ -50,9 +50,7 @@ export default function Activity() {
     })
 
     const [errors, setErrors] = useState({});
-
     const [error, setError] = useState({});
-
     const [activityCountry,setAvtivityCountry] = useState([]);
 
     useEffect(()=>{
@@ -62,12 +60,11 @@ export default function Activity() {
     const handleFormChange = function(e) {
         setErrors(validate({
             ...form,
-            //...activityCountry,
             [e.target.name]: e.target.value
           }));
       
-          setForm({ //prevState
-            ...form, //prevState
+          setForm({ 
+            ...form, 
             [e.target.name]: e.target.value
           });
         activities.msg = '';
@@ -164,7 +161,7 @@ export default function Activity() {
         <>
         <Link to='/home'><button className={s.btnBack}>Volver</button></Link>
             
-            <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
             <div className={s.containerForm}> 
                 <div className={s.columA}>
                     <div className={s.name}>
@@ -191,74 +188,74 @@ export default function Activity() {
                     </div>
 
                     <div className={s.duration}>
-                    <label htmlFor="duration">Duracion:</label>
-                    <select name="duration" id="duration" value={form.duration} onChange={handleFormChange}>
-                        <option value="0">Horas</option>
-                        <option value="1">1-2 (hs)</option>
-                        <option value="2">2-3 (hs)</option>
-                        <option value="3">3-4 (hs)</option>
-                        <option value="4">4-5 (hs)</option>
-                        <option value="5">Mayor 5 (hs)</option>
-                    </select>
-                    {errors.duration && (
-                        <p style={{color: "red"}}>{errors.duration}</p>
-                    )}
+                        <label htmlFor="duration">Duracion:</label>
+                        <select name="duration" id="duration" value={form.duration} onChange={handleFormChange}>
+                            <option value="0">Horas</option>
+                            <option value="1">1-2 (hs)</option>
+                            <option value="2">2-3 (hs)</option>
+                            <option value="3">3-4 (hs)</option>
+                            <option value="4">4-5 (hs)</option>
+                            <option value="5">Mayor 5 (hs)</option>
+                        </select>
+                        {errors.duration && (
+                            <p style={{color: "red"}}>{errors.duration}</p>
+                        )}
                     </div>
 
                     <div className={s.season}>
-                    <label htmlFor="season">Temporada:</label>
-                    <select name="season" id="season" value={form.season} onChange={handleFormChange}>
-                        <option value="">Estacion</option>
-                        <option value="Verano">Verano</option>
-                        <option value="Invierno">Invierno</option>
-                        <option value="Otoño">Otoño</option>
-                        <option value="Primavera">Primavera</option>
-                    </select>
-                    {errors.season && (
-                        <p style={{color: "red"}}>{errors.season}</p>
-                    )}
+                        <label htmlFor="season">Temporada:</label>
+                        <select name="season" id="season" value={form.season} onChange={handleFormChange}>
+                            <option value="">Estacion</option>
+                            <option value="Verano">Verano</option>
+                            <option value="Invierno">Invierno</option>
+                            <option value="Otoño">Otoño</option>
+                            <option value="Primavera">Primavera</option>
+                        </select>
+                        {errors.season && (
+                            <p style={{color: "red"}}>{errors.season}</p>
+                        )}
                     </div>
                 </div>
 
                 <div className={s.columB}>
-                <div className={s.country}>
-                <label htmlFor="countrys">Pais:</label>
-                <input list="country" ref={country} placeholder='Ej: ARG'/>  
-                <datalist id="country">
-                    {countries?.map(cn => (
-                        <option key={cn.id} value={cn.id} name={cn.name}>{cn.name}</option> 
-                    ))}
-                </datalist>
-                <button className={s.btnC} type="button" onClick={handleCountryClick}>Agregar</button>
-                {console.log(activityCountry)}
-                {error.activityCountry && (
-                    <p style={{color: "red"}}>{error.activityCountry}</p>
-                )}
-                <div className={s.containerCard}>
-                {activityCountry?.map(ac => (//
-                    <div key={ac} className={s.targetCard}>
-                        <button className={s.noselect} onClick={e=>handleButtonClick(e,ac)}>
-                            <span className={s.text}>{ac}</span>
-                            <span className={s.icon}>
-                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
-                                </svg>
-                            </span>
-                        </button>
+                    <div className={s.country}>
+                        <label htmlFor="countrys">Pais:</label>
+                        <input list="country" ref={country} placeholder='Ej: ARG'/>  
+                        <datalist id="country">
+                            {countries?.map(cn => (
+                                <option key={cn.id} value={cn.id} name={cn.name}>{cn.name}</option> 
+                            ))}
+                        </datalist>
+                        <button className={s.btnC} type="button" onClick={handleCountryClick}>Agregar</button>
+                        {console.log(activityCountry)}
+                        {error.activityCountry && (
+                            <p style={{color: "red"}}>{error.activityCountry}</p>
+                        )}
+                        <div className={s.containerCard}>
+                        {activityCountry?.map(ac => (//
+                            <div key={ac} className={s.targetCard}>
+                                <button className={s.noselect} onClick={e=>handleButtonClick(e,ac)}>
+                                    <span className={s.text}>{ac}</span>
+                                    <span className={s.icon}>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666
+                                                    8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        ))}
+                        </div>
                     </div>
-                ))}
                 </div>
-                </div>
-                </div>
-
-                </div>
-                <div className={s.btn}>
-                    <button className={s.btnCan} onClick={handleFormCancel}>Cancelar</button>
-                    <button type="submit" disabled={errors.name || errors.dificulty || errors.duration || errors.season || error.activityCountry || 
-                                        form.name === '' || form.dificulty === 0 || form.duration === 0 || form.season === '' || activityCountry.length === 0}>Crear</button>
-                </div>
-                
-            </form> 
+            </div>
+            <div className={s.btn}>
+                <button className={s.btnCan} onClick={handleFormCancel}>Cancelar</button>
+                <button type="submit" disabled={errors.name || errors.dificulty || errors.duration || errors.season || error.activityCountry || 
+                                      form.name === '' || form.dificulty === 0 || form.duration === 0 || form.season === '' || activityCountry.length === 0}>Crear</button>
+            </div>
+        </form> 
         
         <div className={s.msgForm}>{activities?.msg && activities?.color === 'green' && <h3 style={{color: '#16c774'}}>{activities.msg}</h3>}</div>
         <div className={s.msgForm}>{activities?.msg && activities?.color === 'red' && <h3 style={{color: '#b61913'}}>{activities.msg}</h3>}</div>

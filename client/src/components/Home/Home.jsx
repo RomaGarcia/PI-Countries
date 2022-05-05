@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-//import CountryCard from '../CountryCard/CountryCard';
 import Filter from '../Filter/Filter';
 import { getCountries, getActivities} from '../../redux/actions';
 import s from './Home.module.css';

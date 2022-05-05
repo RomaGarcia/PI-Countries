@@ -1,7 +1,7 @@
 .containerById{
     display: flex;
     justify-content: center;
-    border-radius: 30px;
+    border-radius: 20px;
     background: #ffffff;
     box-shadow: 15px 15px 30px #bebebe,
                 -4px -4px 8px #d4d4d4;

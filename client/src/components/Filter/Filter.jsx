@@ -10,10 +10,12 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     const countries = useSelector((state) => state.countries);
     const countrieByName = useSelector((state) => state.countrieByName);
     const countriesActivity = useSelector((state) => state.countriesActivity);
+
     let countries_filters = [];
     let countries_filters2 = [];
     let filters = '';
     let maxPage = 0;
+
     const [page,setPage] = useState(1);
     let num = page;
 
@@ -70,11 +72,9 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             if (x.name > y.name) {return 1;}
             return 0;
         }
-        
-        //console.log('a',countries_filters)
-        if(!countries_filters.length) countries_filters = countriesActivity //ESTE IF CON LA ASIGNACION LO HAGO PORQUE CUANDO TIENE CONDICION DE TODOS-TODAS-INDSALF-INDSPOP -> countries_filters esta vacio 
+        //ESTE IF CON LA ASIGNACION LO HAGO PORQUE CUANDO TIENE CONDICION DE TODOS-TODAS-INDSALF-INDSPOP -> countries_filters esta vacio 
+        if(!countries_filters.length) countries_filters = countriesActivity 
         countries_filters = countries_filters.sort(SortArray);
-        //console.log('b',countries_filters)
     }
 
     if(alfaSearch === 'ASC' && popuSearch === 'indisPopu' && !filters.length){
@@ -83,7 +83,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             if (x.name > y.name) {return -1;}
             return 0;
         }
-        //countries_filters = countriesActivity.sort(SortArray);
         if(!countries_filters.length) countries_filters = countriesActivity
         countries_filters = countries_filters.sort(SortArray);
     }
@@ -94,7 +93,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             if (x.population > y.population) {return -1;}
             return 0;
         }
-        //countries_filters = countriesActivity.sort(SortArray);
         if(!countries_filters.length) countries_filters = countriesActivity
         countries_filters = countries_filters.sort(SortArray);
     }
@@ -105,7 +103,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             if (x.population > y.population) {return 1;}
             return 0;
         }
-        //countries_filters = countriesActivity.sort(SortArray);
         if(!countries_filters.length) countries_filters = countriesActivity
         countries_filters = countries_filters.sort(SortArray);
     }
@@ -118,23 +115,18 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
 
 
     maxPage = Math.ceil((countries_filters.length / 9.9));
-        if(!maxPage) maxPage=1;
-    
-        //if(maxPage < page) num = 1;
+    if(!maxPage) maxPage=1;
 
     if(num===1){
         for (let i = (num * 9) - 9; i < num*9; i++) {
-            if(countries_filters[i] !== undefined)
-            countries_filters2.push(countries_filters[i])
+            if(countries_filters[i] !== undefined) countries_filters2.push(countries_filters[i])
         }
     }else{
         for (let i = (num * 10) - 11; i < (num*10)-1; i++) {
-            if(countries_filters[i] !== undefined)
-            countries_filters2.push(countries_filters[i])
+            if(countries_filters[i] !== undefined) countries_filters2.push(countries_filters[i])
         }
     } 
 
-    console.log(countries_filters)
     return (
         <div >
             <div className={s.paginated}>
@@ -166,7 +158,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
                 ))}
 
             {!nameSearch && filters ?  (<h2>{filters}</h2>) :
-            nameSearch && countries_filters?.msg ? <h2>No se encontro el pais</h2> :
+            nameSearch && countries_filters?.msg ? <h2>{countries_filters.msg}</h2> :
             nameSearch && countries_filters2?.map(cn => (
                 <div key={cn.id}>
                     <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>

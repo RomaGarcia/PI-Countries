@@ -2,7 +2,7 @@ form{
     background: #ffffff;
     box-shadow: 15px 15px 30px #bebebe,
                 -4px -4px 8px #d4d4d4;
-    margin: 4em 35em 0 35em ;
+    margin: 4em 30em 0 30em ;
     border-radius: 30px;
     border: 1px solid #1b9aee69;
 }
@@ -10,7 +10,7 @@ form{
 .containerForm{
     display: flex;
     justify-content: center;
-    padding: 1em ;
+    padding: 1em;
 }
 
 .containerForm .columA, .containerForm .columB{
@@ -127,7 +127,7 @@ form{
    .name, .dificulty, .duration, .season, .country{
        display: flex;
        flex-direction: column;
-       padding: 1em;
+       padding: 1.5em;
    }
 
    .name input, .dificulty select, .duration select, .season select, .country input{
