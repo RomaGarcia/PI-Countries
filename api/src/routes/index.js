@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const axios = require('axios');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Activity,Country, Op} = require('../db');
@@ -12,23 +11,57 @@ router.get('/countries', async (req,res,next)=>{
     try {
         const {name} = req.query;
         
-        if(name){
+        if(name && name !== ''){
             const county = await Country.findAll({
                 where:{ name:{[Op.iLike]: `%${name}%`}}
             })
     
-            county.length ? res.send(county) : res.status(404).send('Country not found');
+            county.length ? res.send(county) : res.status(404).send({msg:'Country not found'});
         }else{
             const countrieAll = await Country.findAll();
             countrieAll.length ? res.send(countrieAll) : res.status(404).send('Countries not founds');
-        } //return res.status(404).send('the value isn t a string or nothing recive');
+        }
 
     } catch (error) {
         next(error);
     }
 })
 
+/*router.get('/countries', (req,res,next)=>{
+    const {name} = req.query;
+    if(name && name !== ''){
+        Country.findAll({
+            where:{ name:{[Op.iLike]: `%${name}%`}}
+        })
+        .then((country)=>{
+            if(country.length) return res.send(country)
+            else return res.status(404).send({msg:'Country not found'});
+        })
+        .catch(error => next(error))
 
+    }else{
+        Country.findAll()
+        .then((countries)=>{
+            if(countries.length) return res.send(countries)
+            else return res.status(404).send({msg:'Countries not found'});
+        })
+        .catch(error => next(error))
+    }
+
+})*/
+
+router.get('/countries/activity', async (req,res,next)=>{
+    try {
+        const pais = await Country.findAll({
+            include: Activity
+        });
+    
+        pais.length ? res.send(pais) : res.status(404).send('Don t have countries n activities');
+
+    } catch (error) {
+        next(error);
+    }
+})
 
 router.get('/countries/:idPais', async (req,res,next)=>{
     try {
@@ -64,55 +97,34 @@ router.post('/activity',async (req,res,next)=>{
         const activity = await Activity.findOne({
             where: {name,dificulty,duration,season}
         });
-        let status;
 
         if(!activity){
-            //si el pais no existe lo crea igual!!!!!!!!!!!!!! (se podria hacer un map del country)
             const act_created = await Activity.create({name,dificulty,duration,season});
-            
-            
-            const promises = country.map(async cn => {
-                country_prom = await Country.findByPk(cn)//name o id???? ver front
+                    
+            country.map(async cn => {
+                country_prom = await Country.findByPk(cn)
                 if(country_prom instanceof Country) {
                     await act_created.addCountry(country_prom);
-                
-                    //return res.send('Activity added succefuly');
-                    status=true;
-                    console.log(status);
-                    console.log('activity added');
-                    
+                    console.log('activity added to a country');
                 }
-                else {console.log('Country dosen t exist'); status=false}//res.status(404).send('Country dosen t exist');
-            //const country_prom = await Promise.all(promises);
-            
+                else {console.log('Country dosen t exist')}     
             })
-            /*let country_prom = await Country.findByPk(country);
-            if(country_prom) {
-                await act_created.addCountry(country_prom);
-            
-                return res.send('Activity added succefuly');
-            }
-            else res.status(404).send('Country dosen t exist');*/
-        }else{
-            return res.status(404).send('Activity alredy exist');
-        }
+            return res.send({msg:'Activity added',color:'green'});
 
-        /*if(status) return res.send('Activity added succefuly');
-        return res.send('Some Avtivities can t be added becauese the country dosen t exists');*/
-        return res.send('Activity added');
+        }else return res.status(404).send({msg:'Activity alredy exist',color:'red'});
 
     } catch (error) {
         next(error);
     }
 })
 
-router.get('/all', async (req,res,next)=>{
+router.get('/activity', async (req,res,next)=>{
     try {
-        const character = await Country.findByPk("1");
-        console.log(character instanceof Country);
-    return res.send(character);
+        const activityAll = await Activity.findAll();
+        activityAll.length ? res.send(activityAll) : res.status(404).send('do not have activities');
     } catch (error) {
         next(error);
     }
 })
+
 module.exports = router;

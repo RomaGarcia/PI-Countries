@@ -32,7 +32,10 @@ module.exports = (sequelize) => {
     },
     area:{
       type: DataTypes.INTEGER,
-      allowNull: true
+      allowNull: true,
+      get() {
+        return this.getDataValue('area') + ' km2';
+      }
     },
     population:{
       type: DataTypes.INTEGER,
