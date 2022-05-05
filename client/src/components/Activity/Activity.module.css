@@ -104,16 +104,25 @@ form{
    }
    
    .btn button:active:after , .btnC:active:after {
-    border-width: 0 0 0px;
+        border-width: 0 0 0px;
    }
    
-   .btn button:active, .btnC:active {
+   /*.btn button:active, .btnC:active {
     padding-bottom: 10px;
+   }*/
+
+   .btn button:disabled, .btn button:active{
+    background-color: #16c774;
+    color: #d3d3d3;;
+    cursor:default;
+    padding-bottom: 2px;
    }
 
-   .btn button:disabled{
-    background-color: #79c09f;
+   .btnC:active{
+    margin-top: 9px;
+    padding-bottom: 1px;
    }
+
 
    .name, .dificulty, .duration, .season, .country{
        display: flex;
@@ -201,10 +210,9 @@ form{
     margin-bottom: 0;
    }
 
-   .targetCard input{
+   .targetCard button{
         text-align: center;
        margin: 8px;
-       padding: .3em;
        border: 1px solid #1b9aee69;
        box-shadow: 1px 1px 6px #c5c5c5,
        -1px -1px 6px #ffffff;
@@ -220,29 +228,48 @@ form{
                     -2px -2px 2px #d4d4d4;
         background-color: #ffffff;
    }
-   
-   .targetCard input, input span {
-        transition: 200ms;
-   }
 
+   .targetCard button, .targetCard button span {
+    transition: 200ms;
+   }
    
-   .targetCard input .icon {
-    /*position: absolute;
+   .targetCard button .text {
+    color: black;
+   }
+   
+   .targetCard button .icon {
+    position: absolute;
+    /*transform: translateX(110px);*/
+    height: 40px;
+    width: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;*/
-        display: none;
+    justify-content: center;
    }
    
-   .targetCard span svg {
-        display: none;
+   .targetCard button svg {
+    width: 15px;
+    fill: transparent;
+
    }
    
-   .targetCard input:hover {
+   .targetCard button:hover {
     background: #ff3636e1;
-    color: black
    }
    
+   .targetCard button:hover .text {
+    color: transparent;
+   }
+   
+   .targetCard button:hover .icon  svg{
+    /*transform: translateX(0);*/
+    fill: white;
+   }
+   
+   .targetCard button:focus {
+    outline: none;
+   }
+
 
 
    

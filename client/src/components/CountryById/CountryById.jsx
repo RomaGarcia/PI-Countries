@@ -37,7 +37,6 @@ export default function CountrieById(){
                 <h4> <b>Poblacion:</b> {countrieById.population}</h4>
             </div>
 
-
         </div>
         {act !==0 && <h3 className={s.titleAct}>ACTIVIDADES</h3>}
         <div className={s.containerActivity}>
@@ -49,6 +48,7 @@ export default function CountrieById(){
                 </div>
             ))}
         </div>
+        
         </>
     )
 }

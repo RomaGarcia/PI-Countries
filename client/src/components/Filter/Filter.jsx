@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react';
 import CountryCard from '../CountryCard/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountrieByName, getCountriesActivities} from '../../redux/actions';
+import { getCountrieByName, getCountriesActivities, getCountries} from '../../redux/actions';
 import s from './Filter.module.css';
 
 export default function Filter({ nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch}) {
@@ -12,13 +12,18 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     const countriesActivity = useSelector((state) => state.countriesActivity);
     let countries_filters = [];
     let countries_filters2 = [];
-    let filters = [];
+    let filters = '';
     let maxPage = 0;
     const [page,setPage] = useState(1);
     let num = page;
 
     useEffect(()=>{
+        setPage(1)
+    },[dispatch,nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch])
+
+    useEffect(()=>{
         dispatch(getCountriesActivities());
+        dispatch(getCountries());
     },[dispatch])
 
     useEffect(()=>{
@@ -27,7 +32,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
 
 
     if( activitySearch !== 'Todas' && continentSearch !== 'Todos'){
-        filters = [];
+        filters = '';
         for(let i=0 ; i<countriesActivity.length ; i++){
             for(let j=0 ; j<countriesActivity[i].activities.length ; j++){
                 if(countriesActivity[i].continent === continentSearch){
@@ -37,7 +42,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
                 }
             }
         }
-        if(!countries_filters.length) filters = [{msg:'nada'}];
+        if(!countries_filters.length) filters = 'Do Not found activities';
     }
 
     if( continentSearch !== 'Todos' && activitySearch === 'Todas' ){
@@ -112,10 +117,10 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     if( nameSearch === '' &&  continentSearch === 'Todos' && activitySearch === 'Todas' && alfaSearch === 'indisAlfa' && popuSearch === 'indisPopu') countries_filters = countries;
 
 
-    maxPage = Math.ceil((countries_filters.length / 10));
+    maxPage = Math.ceil((countries_filters.length / 9.9));
         if(!maxPage) maxPage=1;
     
-        if(maxPage < page) num = 1;
+        //if(maxPage < page) num = 1;
 
     if(num===1){
         for (let i = (num * 9) - 9; i < num*9; i++) {
@@ -123,14 +128,13 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             countries_filters2.push(countries_filters[i])
         }
     }else{
-        for (let i = (num * 10) - 10; i < num*10; i++) {
+        for (let i = (num * 10) - 11; i < (num*10)-1; i++) {
             if(countries_filters[i] !== undefined)
             countries_filters2.push(countries_filters[i])
         }
-    }
+    } 
 
-
-
+    console.log(countries_filters)
     return (
         <div >
             <div className={s.paginated}>
@@ -161,8 +165,8 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
                     </div>
                 ))}
 
-            {!nameSearch && filters[0] ?  (<h2>No se encontroasasd</h2>) :
-            nameSearch && countries_filters?.msg ? <h2>No se encontro</h2> :
+            {!nameSearch && filters ?  (<h2>{filters}</h2>) :
+            nameSearch && countries_filters?.msg ? <h2>No se encontro el pais</h2> :
             nameSearch && countries_filters2?.map(cn => (
                 <div key={cn.id}>
                     <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>

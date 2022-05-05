@@ -122,9 +122,9 @@ export default function Activity() {
         }
     }
 
-    const handleButtonClick = function(e){
+    const handleButtonClick = function(e,ac){
         e.preventDefault();
-        setAvtivityCountry(activityCountry.filter(ac => ac !== e.target.value))
+        setAvtivityCountry(activityCountry.filter(aC => aC !== ac))
     }
 
     const handleFormCancel = function(e) {
@@ -235,14 +235,16 @@ export default function Activity() {
                     <p style={{color: "red"}}>{error.activityCountry}</p>
                 )}
                 <div className={s.containerCard}>
-                {activityCountry?.map(ac => (
+                {activityCountry?.map(ac => (//
                     <div key={ac} className={s.targetCard}>
-                        <input className={s.noselect} type='button' onClick={handleButtonClick} value={ac}/>
-                            <span>
-                            <svg  width="24" height="24" viewBox="0 0 24 24">
-                                <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
-                            </svg>
+                        <button className={s.noselect} onClick={e=>handleButtonClick(e,ac)}>
+                            <span className={s.text}>{ac}</span>
+                            <span className={s.icon}>
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+                                </svg>
                             </span>
+                        </button>
                     </div>
                 ))}
                 </div>
@@ -252,7 +254,8 @@ export default function Activity() {
                 </div>
                 <div className={s.btn}>
                     <button className={s.btnCan} onClick={handleFormCancel}>Cancelar</button>
-                    <button type="submit">Crear</button>
+                    <button type="submit" disabled={errors.name || errors.dificulty || errors.duration || errors.season || error.activityCountry || 
+                                        form.name === '' || form.dificulty === 0 || form.duration === 0 || form.season === '' || activityCountry.length === 0}>Crear</button>
                 </div>
                 
             </form> 
