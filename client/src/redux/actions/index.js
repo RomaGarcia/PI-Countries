@@ -95,7 +95,8 @@ export const getCountries = () => {
   };
 
   export const setPage = (num) => {
-    return(dispatch) => {
+    /*return(dispatch) => {
         dispatch({ type: SET_PAGE, payload: num });
-    };
+    };*/
+    return {type: SET_PAGE, payload: num}
   };

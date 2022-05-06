@@ -158,7 +158,7 @@ export default function Activity() {
     }
 
     return (
-        <>
+        <div className={s.image}>
         <Link to='/home'><button className={s.btnBack}>Volver</button></Link>
             
         <form onSubmit={handleFormSubmit}>
@@ -259,6 +259,6 @@ export default function Activity() {
         
         <div className={s.msgForm}>{activities?.msg && activities?.color === 'green' && <h3 style={{color: '#16c774'}}>{activities.msg}</h3>}</div>
         <div className={s.msgForm}>{activities?.msg && activities?.color === 'red' && <h3 style={{color: '#b61913'}}>{activities.msg}</h3>}</div>
-        </>
+        </div>
     )
 }

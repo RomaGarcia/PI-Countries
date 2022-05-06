@@ -1,7 +1,18 @@
+.image{
+    background: url("../../peakpx3.jpg");
+    height: 100vh;
+    width: auto;
+    background-position: center center;  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: .95;
+}
+
 form{
     background: #ffffff;
-    box-shadow: 15px 15px 30px #bebebe,
-                -4px -4px 8px #d4d4d4;
+    opacity: .92;
+    box-shadow: 3px 3px 6px #bebebe;
     margin: 4em 30em 0 30em ;
     border-radius: 30px;
     border: 1px solid #1b9aee69;
@@ -57,7 +68,7 @@ form{
 
    .btnC{
     width: 100px;
-    margin: .5em 0 0 35%;
+    margin: .5em 0 0 37.5%;
     
 }
 
@@ -181,9 +192,9 @@ form{
    }
    
    .btnBack:hover{
-    background-color: #1b9bee;/*#2EE59D;*/
-    box-shadow: 0px 15px 20px rgba(46, 141, 229, 0.4);
-    color: #fff;
+    /*background-color: #1b9bee;#2EE59D;*/
+    box-shadow: 20px 20px 25px rgba(46, 141, 229, 0.4);
+    color:#1b9bee;
     transform: translateY(-7px);
    }
    
@@ -213,9 +224,6 @@ form{
    .targetCard button{
         text-align: center;
        margin: 8px;
-       border: 1px solid #1b9aee69;
-       box-shadow: 1px 1px 6px #c5c5c5,
-       -1px -1px 6px #ffffff;
        border-radius: 10px;
         width: 60px;
         height: 50px;
@@ -224,13 +232,14 @@ form{
         align-items: center;
         justify-content: center;
         border: none;
-        box-shadow: 4px 4px 4px #bebebe,
-                    -2px -2px 2px #d4d4d4;
+        box-shadow: 5px 5px 8px #bebebe,
+                    -2px -2px 4px #d4d4d4;
         background-color: #ffffff;
    }
 
    .targetCard button, .targetCard button span {
     transition: 200ms;
+    
    }
    
    .targetCard button .text {
