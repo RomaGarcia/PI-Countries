@@ -54,10 +54,11 @@ const loaderDb = async () => {
     .then((response)=>{
       const all_countries = response.data;
 
-      let countries_to_db = [];
+      
 
       if(all_countries.length)
       {
+        let countries_to_db = [];
         for(let i=0 ; i<all_countries.length ; i++){
           countries_to_db.push({
             id: all_countries[i].cca3,
