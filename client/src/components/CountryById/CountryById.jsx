@@ -9,16 +9,16 @@ import s from './CountryById.module.css';
 export default function CountrieById(){
     const dispatch = useDispatch();
     const countrieById = useSelector((state) => state.countrieById);
+    const deleteActCounMsg = useSelector((state) => state.deleteActCounMsg);
     let act = 0;
 
     const {id} = useParams();
 
     useEffect(()=>{
         dispatch(getCountrieById(id))
-        
-    },[id, dispatch])
-    
-    if(countrieById.activities !== undefined) act = countrieById.activities.length
+    },[id, dispatch, deleteActCounMsg])
+
+    if(countrieById.activities !== undefined ) act = countrieById.activities.length
 
     return (
         <>
@@ -41,10 +41,10 @@ export default function CountrieById(){
         {act !==0 && <h3 className={s.titleAct}>ACTIVIDADES</h3>}
         <div className={s.containerActivity}>
             
-            {!act  ? <h3 className={s.titleAct}>No hay Actividades</h3>
+            {act === 0  ? <h3 className={s.titleAct}>No hay Actividades</h3>
             : countrieById.activities?.map(a => (
                 <div key={a.id}>
-                    <ActivityCard id={a.id} name={a.name} dificulty={a.dificulty} duration={a.duration} season={a.season}/>
+                    <ActivityCard idCountry={countrieById.id} idActivity={a.id} name={a.name} dificulty={a.dificulty} duration={a.duration} season={a.season}/>
                 </div>
             ))}
         </div>

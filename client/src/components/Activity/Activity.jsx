@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { getCountries, setActivity} from '../../redux/actions';
+import { getCountries, setActivity, setActivityMsg} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import s from './Activity.module.css';
@@ -67,12 +67,12 @@ export default function Activity() {
             ...form, 
             [e.target.name]: e.target.value
           });
-        activities.msg = '';
+        dispatch(setActivityMsg());
     }
 
     const handleCountryClick= function(e) {
 
-        activities.msg = '';
+        dispatch(setActivityMsg());
         if(!country.current.value) {
             setError({
                 ...activityCountry,
@@ -136,7 +136,7 @@ export default function Activity() {
         country.current.value = '';
         setError({});
         setErrors({});
-        activities.msg = '';
+        dispatch(setActivityMsg());
     }
 
 

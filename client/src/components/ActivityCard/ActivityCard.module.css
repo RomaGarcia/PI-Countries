@@ -11,3 +11,23 @@
     padding: .5em;
     border: 1px solid #1b9aee69;
 }
+
+.btnDelete{
+    float:right;
+    background-color: #ff3636e1;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    box-shadow: 1px 1px 6px #c5c5c5,
+    -1px -1px 6px #ffffff;
+}
+
+.btnDelete:hover{
+    opacity: .9;
+}
+
+.btnDelete:active {
+    box-shadow: inset 4px 4px 12px #8a0101,
+                inset -4px -4px 12px #f73333;
+   }

@@ -1,4 +1,4 @@
-import {GET_COUNTRIES,GET_COUNTRIE_BY_ID,GET_COUNTRIE_BY_NAME, SET_ACTIVITY, GET_ACTIVITY, GET_COUNTRY_ACTIVITY, SET_PAGE} from '../actions';
+import {GET_COUNTRIES,GET_COUNTRIE_BY_ID,GET_COUNTRIE_BY_NAME, SET_ACTIVITY, GET_ACTIVITY, GET_COUNTRY_ACTIVITY, SET_COUNTRIE,SET_ACTIVITY_MSG,DELETE_ACT_COUN} from '../actions';
 
 const initialState = {
     countries: [],
@@ -7,7 +7,7 @@ const initialState = {
     activities: [],
     activitiesAll: [],
     countriesActivity: [],
-    page: 1
+    deleteActCounMsg: '',
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -50,12 +50,25 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             countriesActivity: action.payload
           }
-        
-        case SET_PAGE:
+
+        case SET_ACTIVITY_MSG:
           return{
             ...state,
-            page: action.payload
+            activities: []
           }
+        
+        case SET_COUNTRIE:
+          return{
+            ...state,
+            countries: []
+          }
+
+        case DELETE_ACT_COUN:
+          return{
+            ...state,
+            deleteActCounMsg: action.payload,
+          }
+        
 
         default: return {...state}
       }

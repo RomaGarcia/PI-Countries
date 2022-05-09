@@ -17,7 +17,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     let maxPage = 0;
 
     const [page,setPage] = useState(1);
-    let num = page;
 
     useEffect(()=>{
         setPage(1)
@@ -117,12 +116,12 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     maxPage = Math.ceil((countries_filters.length / 9.9));
     if(!maxPage) maxPage=1;
 
-    if(num===1){
-        for (let i = (num * 9) - 9; i < num*9; i++) {
+    if(page===1){
+        for (let i = (page * 9) - 9; i < page*9; i++) {
             if(countries_filters[i] !== undefined) countries_filters2.push(countries_filters[i])
         }
     }else{
-        for (let i = (num * 10) - 11; i < (num*10)-1; i++) {
+        for (let i = (page * 10) - 11; i < (page*10)-1; i++) {
             if(countries_filters[i] !== undefined) countries_filters2.push(countries_filters[i])
         }
     } 
@@ -130,26 +129,26 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     return (
         <div >
             <div className={s.paginated}>
-            {maxPage === 1 ? num
-            : num > 1 && num < maxPage ?
+            {maxPage === 1 ? page
+            : page > 1 && page < maxPage ?
                 <div>
-                    <button onClick={()=>setPage(num-1)}>Pre</button>
-                    {num} de {maxPage}
-                    <button onClick={()=>setPage(num+1)}>Sig</button>
+                    <button onClick={()=>setPage(page-1)}>Pre</button>
+                    {page} de {maxPage}
+                    <button onClick={()=>setPage(page+1)}>Sig</button>
                 </div>
-            : num <= 1 ?
+            : page <= 1 ?
                 <div>
-                    {num} de {maxPage}
-                    <button onClick={()=>setPage(num+1)}>Sig</button>
+                    {page} de {maxPage}
+                    <button onClick={()=>setPage(page+1)}>Sig</button>
                 </div> 
-            : num >= maxPage &&
+            : page >= maxPage &&
                 <div>
-                    <button onClick={()=>setPage(num-1)}>Pre</button>
-                    {num} de {maxPage}
+                    <button onClick={()=>setPage(page-1)}>Pre</button>
+                    {page} de {maxPage}
                 </div>
             }
             </div>
-            
+
             <div className={s.cardsContainer}>
             {!nameSearch && countries_filters2?.map(cn => (
                     <div key={cn.id}>

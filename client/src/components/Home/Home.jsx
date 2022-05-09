@@ -2,30 +2,35 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Filter from '../Filter/Filter';
-import { getCountries, getActivities} from '../../redux/actions';
+import { getCountries, getActivities, setCountriesLoad, setActivityMsg} from '../../redux/actions';
 import s from './Home.module.css';
 
 export default function Home() {
 
     const dispatch = useDispatch();
     const countries = useSelector((state) => state.countries);
-    const activities = useSelector((state) => state.activities);
     const activitiesAll = useSelector((state) => state.activitiesAll);
 
-    activities.msg = '';
+    
+    //activities.msg = '';
 
     const [continent, setContinent] = useState('Todos');
     const [activity, setActivity] = useState('Todas');
     const [alfa, setAlfa] = useState('indisAlfa');
     const [population, setPopulation] = useState('indisPopu');
+    const [name, setName] = useState('');
 
     useEffect(()=>{
-        dispatch(getCountries());
+        dispatch(setActivityMsg());
         dispatch(getActivities());
     },[dispatch])
 
-    const [name, setName] = useState('');
-  
+    
+    useEffect(()=>{
+        dispatch(setCountriesLoad())
+        dispatch(getCountries());
+    },[dispatch,continent,activity,alfa,population,name])
+
     const handleInputChange = function(e) {
         setName(e.target.value);
         setContinent('Todos');
@@ -66,7 +71,7 @@ export default function Home() {
                     <div className={s.contentSelect}>
                     <select name="" id="filt_activity" value={activity} onChange={(e)=>setActivity(e.target.value)}>
                         <option value="Todas">Sin Actividad</option>
-                        {activitiesAll?.map(ac => (
+                        {!activitiesAll.msg && activitiesAll?.map(ac => (
                             <option key={ac.id} value={ac.id}>{ac.name}</option> 
                         ))}
                     </select>
@@ -92,7 +97,8 @@ export default function Home() {
             </div>
 
             <>
-                {countries && <Filter nameSearch={name} continentSearch={continent} activitySearch={activity} alfaSearch={alfa} popuSearch={population}/>}
+                {countries.length === 0 ? <h2>Cargando...</h2> :
+                <Filter nameSearch={name} continentSearch={continent} activitySearch={activity} alfaSearch={alfa} popuSearch={population}/>}
             </>
         </div>
     )
