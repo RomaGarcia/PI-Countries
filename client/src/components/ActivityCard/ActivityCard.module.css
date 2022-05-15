@@ -25,9 +25,19 @@
 
 .btnDelete:hover{
     opacity: .9;
+    cursor: pointer;
 }
 
 .btnDelete:active {
     box-shadow: inset 4px 4px 12px #8a0101,
                 inset -4px -4px 12px #f73333;
    }
+
+@media (max-width: 600px) {
+    .card{
+        margin: 10px;
+        background: #ffffff;
+        box-shadow: 1px 1px 10px #bebebe,
+                    -1px -1px 10px #d4d4d4;
+    }
+}

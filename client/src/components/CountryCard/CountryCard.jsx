@@ -10,7 +10,7 @@ export default function CountryCard({id,image,name,continent}) {
             </div>
             <div className={s.cardText}>
                 <h3>{name}</h3>
-                <p> <b>Continente:</b> {continent}</p>
+                <p> <b>Continente: </b> {continent}</p>
             </div>
         </div>
     )

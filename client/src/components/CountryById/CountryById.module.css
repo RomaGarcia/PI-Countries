@@ -1,4 +1,4 @@
-.containerById{
+ .containerById{
     display: flex;
     justify-content: center;
     border-radius: 20px;
@@ -7,6 +7,7 @@
                 -4px -4px 8px #d4d4d4;
     padding: 1em 0em;
     margin: 0 30em;
+    width: 50%;
     overflow: hidden;
     border: 1px solid #1b9aee69;
 }
@@ -83,3 +84,135 @@ h4{
     padding: .5em;
     border: 1px solid #1b9aee69;
 }
+
+.contentSelect{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5%;
+    margin: 3em 0 0 0
+}
+ 
+.contentSelect select{
+
+	width: 10%;
+	cursor: pointer;
+  	padding: 7px 10px;
+  	height: 40px;
+	background: /*#fcfcfc;*/#ffffff;
+	color: #9e9ea7;
+	font-size: medium;
+	border:2px solid rgba(0, 0, 0, 0);
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.25s ease;
+    box-shadow: 1px 1px 4px #bebebe,
+                -1px -1px 4px #ffffff;
+}
+ 
+.contentSelect select:hover, .contentSelect select:focus{
+    outline: none;
+    border-color: #1b9bee;
+}
+
+.btnAdd{
+
+    background-color: #1899D6;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    box-shadow: 1px 1px 6px #c5c5c5,
+    -1px -1px 6px #ffffff;
+    margin-left: 5px;
+    padding: .4em;
+}
+
+.btnAdd:hover{
+    opacity: .9;
+    cursor: pointer;
+}
+
+.btnAdd:active {
+    box-shadow: inset 4px 4px 12px #005177
+                inset -4px -4px 12px #3f95bd;
+   }
+
+   .btnAdd:disabled, .btnAdd:active{
+    background-color: #1899D6;
+    color: #d3d3d3;;
+    cursor:default;
+    opacity: 1;
+   }
+
+   .load{
+    width:150px;
+    height:150px;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    margin-top: -100px;
+    margin-left: -100px;
+    animation: rotate4 2s linear infinite;
+   }
+   
+   circle {
+    fill: none;
+    stroke: hsl(214, 97%, 59%);
+    stroke-width: 2;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: dash4 1.5s ease-in-out infinite;
+   }
+   
+   @keyframes rotate4 {
+    100% {
+     transform: rotate(360deg);
+    }
+   }
+   
+   @keyframes dash4 {
+    0% {
+     stroke-dasharray: 1, 200;
+     stroke-dashoffset: 0;
+    }
+   
+    50% {
+     stroke-dasharray: 90, 200;
+     stroke-dashoffset: -35px;
+    }
+   
+    100% {
+     stroke-dashoffset: -125px;
+    }
+   }
+   h4{
+       font-weight: 300;
+   }
+
+   @media (max-width: 600px) {
+    div{
+        overflow: hidden;
+    }
+    .containerById{
+        padding: 0;
+        margin-left: 1em;
+        margin-top: 1em;
+        width: 90%;
+        flex-direction: column;
+        box-shadow: 1px 1px 10px #bebebe,
+        -1px -1px 10px #d4d4d4;
+        
+    }
+    .columA, .columB{
+        margin: 0;
+        margin-left: 1em;
+        padding: 0;
+    }
+
+    .contentSelect select{
+        width: 60%;
+    }
+
+  }

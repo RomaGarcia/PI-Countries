@@ -1,7 +1,7 @@
-import React, {useEffect,useState} from 'react';
+import React, {useEffect,/*useState*/} from 'react';
 import CountryCard from '../CountryCard/CountryCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCountrieByName, getCountriesActivities, getCountries} from '../../redux/actions';
+import { getCountrieByName, getCountriesActivities, getCountries, setPageStore} from '../../redux/actions';
 import s from './Filter.module.css';
 
 export default function Filter({ nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch}) {
@@ -10,16 +10,22 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     const countries = useSelector((state) => state.countries);
     const countrieByName = useSelector((state) => state.countrieByName);
     const countriesActivity = useSelector((state) => state.countriesActivity);
+    const page = useSelector((state) => state.page);
 
     let countries_filters = [];
     let countries_filters2 = [];
     let filters = '';
     let maxPage = 0;
 
-    const [page,setPage] = useState(1);
+    //const [page,setPage] = useState(1);//pageStore
+        
+    /*useEffect(()=>{
+        dispatch(setPageStore(page))
+    },[page])*/
+    
 
     useEffect(()=>{
-        setPage(1)
+        if(nameSearch !== '' || continentSearch !== 'Todos' || activitySearch !== 'Todas' || alfaSearch !== 'indisAlfa' || popuSearch !== 'indisPopu') dispatch(setPageStore(1))
     },[dispatch,nameSearch, continentSearch, activitySearch, alfaSearch, popuSearch])
 
     useEffect(()=>{
@@ -30,7 +36,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     useEffect(()=>{
         dispatch(getCountrieByName(nameSearch));
     },[dispatch,nameSearch])
-
 
     if( activitySearch !== 'Todas' && continentSearch !== 'Todos'){
         filters = '';
@@ -46,7 +51,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
         if(!countries_filters.length) filters = 'Do Not found activities';
     }
 
-    if( continentSearch !== 'Todos' && activitySearch === 'Todas' ){
+    if( continentSearch !== 'Todos' && activitySearch=== 'Todas' ){
         for(let i=0 ; i<countriesActivity.length ; i++){
             if(countriesActivity[i].continent === continentSearch){
                 countries_filters.push(countriesActivity[i]);
@@ -65,7 +70,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
 
     }
 
-    if(alfaSearch === 'DESC' && popuSearch === 'indisPopu' && !filters.length){
+    if(alfaSearch === 'DESC' && popuSearch === 'indisPopu' && !filters){
         function SortArray(x, y){
             if (x.name < y.name) {return -1;}
             if (x.name > y.name) {return 1;}
@@ -76,7 +81,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
         countries_filters = countries_filters.sort(SortArray);
     }
 
-    if(alfaSearch === 'ASC' && popuSearch === 'indisPopu' && !filters.length){
+    if(alfaSearch === 'ASC' && popuSearch === 'indisPopu' && !filters){
         function SortArray(x, y){
             if (x.name < y.name) {return 1;}
             if (x.name > y.name) {return -1;}
@@ -86,7 +91,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
         countries_filters = countries_filters.sort(SortArray);
     }
 
-    if(alfaSearch === 'indisAlfa' && popuSearch === 'DESC' && !filters.length){
+    if(alfaSearch=== 'indisAlfa' && popuSearch === 'DESC' && !filters){
         function SortArray(x, y){
             if (x.population < y.population) {return 1;}
             if (x.population > y.population) {return -1;}
@@ -96,7 +101,7 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
         countries_filters = countries_filters.sort(SortArray);
     }
 
-    if(alfaSearch === 'indisAlfa' && popuSearch === 'ASC' && !filters.length){
+    if(alfaSearch === 'indisAlfa' && popuSearch === 'ASC' && !filters){
         function SortArray(x, y){
             if (x.population < y.population) {return -1;}
             if (x.population > y.population) {return 1;}
@@ -111,7 +116,6 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
     }
     
     if( nameSearch === '' &&  continentSearch === 'Todos' && activitySearch === 'Todas' && alfaSearch === 'indisAlfa' && popuSearch === 'indisPopu') countries_filters = countries;
-
 
     maxPage = Math.ceil((countries_filters.length / 9.9));
     if(!maxPage) maxPage=1;
@@ -132,37 +136,31 @@ export default function Filter({ nameSearch, continentSearch, activitySearch, al
             {maxPage === 1 ? page
             : page > 1 && page < maxPage ?
                 <div>
-                    <button onClick={()=>setPage(page-1)}>Pre</button>
+                    <button onClick={()=>dispatch(setPageStore(page-1))}>Pre</button>
                     {page} de {maxPage}
-                    <button onClick={()=>setPage(page+1)}>Sig</button>
+                    <button onClick={()=>dispatch(setPageStore(page+1))}>Sig</button>
                 </div>
             : page <= 1 ?
                 <div>
                     {page} de {maxPage}
-                    <button onClick={()=>setPage(page+1)}>Sig</button>
+                    <button onClick={()=>dispatch(setPageStore(page+1))}>Sig</button>
                 </div> 
             : page >= maxPage &&
                 <div>
-                    <button onClick={()=>setPage(page-1)}>Pre</button>
+                    <button onClick={()=>dispatch(setPageStore(page-1))}>Pre</button>
                     {page} de {maxPage}
                 </div>
             }
             </div>
 
             <div className={s.cardsContainer}>
-            {!nameSearch && countries_filters2?.map(cn => (
-                    <div key={cn.id}>
-                        <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
-                    </div>
-                ))}
-
-            {!nameSearch && filters ?  (<h2>{filters}</h2>) :
-            nameSearch && countries_filters?.msg ? <h2>{countries_filters.msg}</h2> :
-            nameSearch && countries_filters2?.map(cn => (
-                <div key={cn.id}>
-                    <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
-                </div>
-            ))}
+                {!nameSearch && filters ?  (<h2>{filters}</h2>) :
+                nameSearch && countries_filters?.msg ? <h2>{countries_filters.msg}</h2> :
+                countries_filters2?.map(cn => (
+                        <div key={cn.id}>
+                            <CountryCard id={cn.id} image={cn.image} name={cn.name} continent={cn.continent}/>
+                        </div>
+                    ))}
            </div>
         
         </div>

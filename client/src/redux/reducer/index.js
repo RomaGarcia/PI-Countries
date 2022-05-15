@@ -1,4 +1,4 @@
-import {GET_COUNTRIES,GET_COUNTRIE_BY_ID,GET_COUNTRIE_BY_NAME, SET_ACTIVITY, GET_ACTIVITY, GET_COUNTRY_ACTIVITY, SET_COUNTRIE,SET_ACTIVITY_MSG,DELETE_ACT_COUN} from '../actions';
+import {GET_COUNTRIES,GET_COUNTRIE_BY_ID,GET_COUNTRIE_BY_NAME, SET_ACTIVITY, GET_ACTIVITY, GET_COUNTRY_ACTIVITY,SET_ACTIVITY_MSG,DELETE_ACT_COUN, SET_PAGE, SET_FILTER, SET_COUNTRIE, ADD_ACTIVITY} from '../actions';
 
 const initialState = {
     countries: [],
@@ -8,6 +8,12 @@ const initialState = {
     activitiesAll: [],
     countriesActivity: [],
     deleteActCounMsg: '',
+    addActCounMsg: '',
+    continent:'',
+    activity:'',
+    alfa:'',
+    population:'',
+    page: 1,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -56,6 +62,27 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             activities: []
           }
+
+        case DELETE_ACT_COUN:
+          return{
+            ...state,
+            deleteActCounMsg: action.payload,
+          }
+
+        case SET_PAGE:
+            return{
+              ...state,
+              page: action.payload
+            }
+
+        case SET_FILTER:
+          return{
+            ...state,
+            continent: action.payload.continent,
+            activity: action.payload.activity,
+            alfa: action.payload.alfa,
+            population: action.payload.population,
+          }
         
         case SET_COUNTRIE:
           return{
@@ -63,13 +90,12 @@ const rootReducer = (state = initialState, action) => {
             countries: []
           }
 
-        case DELETE_ACT_COUN:
+        case ADD_ACTIVITY:
           return{
             ...state,
-            deleteActCounMsg: action.payload,
+            addActCounMsg: action.payload,
           }
         
-
         default: return {...state}
       }
 }

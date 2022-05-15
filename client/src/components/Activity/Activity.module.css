@@ -13,7 +13,7 @@ form{
     background: #ffffff;
     opacity: .92;
     box-shadow: 3px 3px 6px #bebebe;
-    margin: 4em 30em 0 30em ;
+    margin: 4em 30em 1em 30em ;
     border-radius: 30px;
     border: 1px solid #1b9aee69;
 }
@@ -141,7 +141,7 @@ form{
        padding: 1.5em;
    }
 
-   .name input, .dificulty select, .duration select, .season select, .country input{
+   .name input, .dificulty select, .duration select, .season select, .country select{
     line-height: 28px;
     border: 2px solid transparent;
     border-bottom-color: #777;
@@ -151,11 +151,21 @@ form{
     color: #0d0c22;
     transition: .3s cubic-bezier(0.645, 0.045, 0.355, 1);
    }
+   .country select{
+    padding: .8rem 0;
+   }
    
    input:focus, input:hover, select:focus, select:hover {
     outline: none;
     padding: .2rem 1rem;
     border-radius: 1rem;
+    border-color: #7a9cc6;
+   }
+
+   .country select:hover, .country select:focus{
+    outline: none;
+    padding: .6rem 1rem;
+    border-radius: 1.05rem;
     border-color: #7a9cc6;
    }
    
@@ -277,6 +287,43 @@ form{
    
    .targetCard button:focus {
     outline: none;
+   }
+   @media (max-width: 1500px) {
+    form{
+        margin: 4em 20em 0 20em ;
+    }
+}
+
+@media (max-width: 1200px) {
+    form{
+        margin: 4em 10em 0 10em ;
+    }
+}
+
+@media (max-width: 1200px) {
+    form{
+        margin: 4em 5em 0 5em ;
+    }
+}
+
+   @media (max-width: 600px) {
+       .image{
+        height: 100%;
+       }
+       form{
+        margin: 4em 1em 4em 1em ;
+       }
+       .containerForm{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        flex-direction: column;
+       
+    }
+    .containerForm .columA, .containerForm .columB {
+        width: 100%;
+        
+    }
    }
 
 

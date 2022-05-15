@@ -47,5 +47,33 @@
 }
 
 .cardText p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin:0;
+}
+
+.cardText p b{
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .card{
+        margin: 10px 2px;
+        background: #ffffff;
+        box-shadow: 1px 1px 5px #c4c4c4,
+                    -1px -1px 5px #cfcfcf;
+        width: 235px;
+        height: 235px;
+        font-size: 15px;
+    }
+    h3{
+        font-size: 17px;
+    }
 }
