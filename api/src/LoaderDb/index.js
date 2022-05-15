@@ -44,7 +44,6 @@ const loaderDb = async () => {
 
 /*const loaderDb = () => {
 
-  
   //return fetch('https://restcountries.com/v3/all')
     //.then(request => request.json())
     //.then(json => {})        
@@ -53,8 +52,6 @@ const loaderDb = async () => {
   return axios.get('https://restcountries.com/v3/all')
     .then((response)=>{
       const all_countries = response.data;
-
-      
 
       if(all_countries.length)
       {
@@ -79,10 +76,9 @@ const loaderDb = async () => {
           })
         }))
         
-        console.log('Countries loaded');
-
       }else console.log('Can not load the countries');
     })
+    .then(()=>{console.log('Countries loaded');})
     
   .catch ((error) => console.log(error))
 }*/

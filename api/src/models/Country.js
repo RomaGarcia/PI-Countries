@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     image:{
-      type: DataTypes.STRING, //revisar tipo
+      type: DataTypes.STRING,
       allowNull: false
     },
     continent:{
